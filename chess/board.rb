@@ -17,12 +17,16 @@ class Board
                 next
             end
             #debugger
-            @grid[i].map!.with_index {|ele, j| ele = Piece.new([i,j])}
+            if i == 0 || i == 1
+                @grid[i].map!.with_index {|ele, j| ele = Piece.new([i,j], self, 'white')}
+            else
+                @grid[i].map!.with_index {|ele, j| ele = Piece.new([i,j], self, 'black')}
+            end
             i += 1
         end
     end
 
-    def move_piece(start_pos, end_pos)
+    def move_piece(color, start_pos, end_pos)#check color on moves below later
         x , y = end_pos
         if !(x >= 0 && x < 8 && y >= 0 && y < 8) #check if end_pos in grid
             raise "Please pick a position inside the board."
