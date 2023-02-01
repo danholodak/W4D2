@@ -1,3 +1,5 @@
+require 'byebug'
+
 module Slideable
 
     HORIZONTAL_DIRS = [
@@ -40,20 +42,21 @@ module Slideable
     def grow_unblocked_moves(dx, dy)
         good_moves = []
         x,y = @pos 
-        block = false
-        new_x = x 
-        new_y = y 
-        while !block && new_x >=0 && new_x <=7 && new_x >=0 && new_x <=7
-            new_x += dx 
-            new_y += dy 
+        blocked = false
+        new_x = x + dx 
+        new_y = y + dy 
+        #debugger
+        while !blocked && new_x >=0 && new_x <=7 && new_y >=0 && new_y <=7
             if @board[[new_x, new_y]].is_a?(NullPiece)
                 good_moves << [new_x, new_y]
             elsif !@board[[new_x, new_y]].is_a?(NullPiece)
                 if self.color != @board[[new_x, new_y]].color 
                     good_moves << [new_x, new_y]
                 end
-                block = true
+                blocked = true
             end
+            new_x += dx 
+            new_y += dy 
         end
         good_moves #.select{|move| move[0] >= 0 && move[0] <=7 && move[1] >= 0 && move[0] <=7}
     end

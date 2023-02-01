@@ -22,7 +22,7 @@ class Board
     def start_board
         i = 0
         while i < 8 
-            if (1..6).include?(i)
+            if (2..5).include?(i)
                 @grid[i].map! do |position|
                     position = NullPiece.instance()
                 end
@@ -31,29 +31,24 @@ class Board
                 color = 'black' if i > 1
                 if i == 0 || i == 7
                     @grid[i].map!.with_index do |ele, j| 
-                        ele = STARTING_POSITIONS[j].new([i,j], self, color)
+                        ele = STARTING_POSITIONS[j].new([j,i], self, color)
                     end
-                # elsif i ==1 || i == 6
-                #     # @grid[i].map!.with_index do |ele, j| 
-                #     #     ele = Pawn.new([i,j], self, color)
-                #     # end
+                elsif i ==1 || i == 6
+                    @grid[i].map!.with_index do |ele, j| 
+                        ele = Pawn.new([j,i], self, color)
+                    end
                 end
-
             end
-            #debugger
-            # else
-            #     color = 'black'
-            #     @grid[i].map!.with_index {|ele, j| ele = Piece.new([i,j], self, color)}
             i += 1
         end
     end
 
     def [](pos)
-        @grid[pos[0]][pos[1]]
+        @grid[pos[1]][pos[0]]
     end
 
     def []=(pos, value)
-        @grid[pos[0]][pos[1]] = value
+        @grid[pos[1]][pos[0]] = value
     end
 
     def move_piece(color, start_pos, end_pos)#check color on moves below later
