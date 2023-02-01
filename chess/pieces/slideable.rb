@@ -1,16 +1,16 @@
 module Slideable
 
     HORIZONTAL_DIRS = [
-        [-1,0]
-        [1,0]
-        [0,1]
+        [-1,0],
+        [1,0],
+        [0,1],
         [0,-1]
     ].freeze
 
     DIAGONAL_DIRS = [
-        [-1,1]
-        [1,1]
-        [-1,-1]
+        [-1,1],
+        [1,1],
+        [-1,-1],
         [1,-1]
     ].freeze
 
@@ -26,22 +26,36 @@ module Slideable
         result = []
         move_dirs.each do |dir|
             a,b = dir
-            x,y = @pos 
-            result << [a + x, b + y]
+            result << grow_unblocked_moves(a, b)
         end
-
+        result
     end
-
+    
     private
-
+    
     def move_dirs
         raise NotImplementedError
     end
-
-    def grow_unblocked_moves
-
-        
-
+    
+    def grow_unblocked_moves(dx, dy)
+        good_moves = []
+        x,y = @pos 
+        block = false
+        new_x = x 
+        new_y = y 
+        while !block
+            new_x += dx 
+            new_y += dy 
+            if board[new_x, new_y].is_a?(NullPiece)
+                good_moves << [new_x, new_y]
+            elsif !board[new_x, new_y].is_a?(NullPiece)
+                if self.color != board[new_x, new_y].color 
+                    good_moves << [new_x, new_y]
+                end
+                block = true
+            end
+        end
+        good_moves
     end
 
 end
