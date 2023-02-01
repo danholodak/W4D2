@@ -8,4 +8,9 @@ class King < Piece
     def symbol
         ♚.colorize(color)
     end
+
+    protected
+    def move_diffs
+        return KING_DIR
+    end
 end

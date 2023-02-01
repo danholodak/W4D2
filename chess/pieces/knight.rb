@@ -7,4 +7,9 @@ class Knight < Piece
     def symbol
         ♞.colorize(color)
     end
+
+    protected
+    def move_diffs
+        return KNIGHT_DIR
+    end
 end
