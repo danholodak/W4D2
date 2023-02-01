@@ -7,4 +7,8 @@ class NullPiece < Piece
     def initialize
 
     end
+    
+    def symbol
+        🙾.colorize(color)
+    end
 end

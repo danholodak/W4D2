@@ -8,4 +8,7 @@ class Rook < Piece
     def move_dirs
         horizontal_dirs
     end
+    def symbol
+        ♜.colorize(color)
+    end
 end

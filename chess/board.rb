@@ -10,14 +10,8 @@ require 'byebug'
 
 class Board
 
-    STARTING_POSITIONS = {
-        Queen => [[0,4], [7,4]],
-        King => [[0,3], [7,3]],
-        Rook => [[0,0], [0,7], [7,0], [7,7]],
-        Bishop => [[0,2], [0,5], [7,2], [7,5]],
-        Knight => [[0,1], [0,6], [7,1], [7,6]],
-        Pawn => [[1,0], [1,1], [1,2], [1,3], [1,4], [1,5], [1,6], [1,7], [6,0], [6,1], [6,2], [6,3], [6,4], [6,5], [6,6], [6,7]]
-}.freeze
+    STARTING_POSITIONS = [Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook].freeze
+
     attr_accessor :grid
    
     def initialize
@@ -28,20 +22,23 @@ class Board
     def start_board
         i = 0
         while i < 8 
-            if (2..5).include?(i)
+            if (1..6).include?(i)
                 @grid[i].map! do |position|
                     position = NullPiece.instance()
                 end
             else
                 color = 'white' if i == 0 || i == 1
                 color = 'black' if i > 1
-                @grid[i].map!.with_index do |ele, j| 
-                    STARTING_POSITIONS.each do |k, v|
-                        if v.include?([i,j])
-                            ele = k.new([i,j], self, color)
-                        end
+                if i == 0 || i == 7
+                    @grid[i].map!.with_index do |ele, j| 
+                        ele = STARTING_POSITIONS[j].new([i,j], self, color)
                     end
+                # elsif i ==1 || i == 6
+                #     # @grid[i].map!.with_index do |ele, j| 
+                #     #     ele = Pawn.new([i,j], self, color)
+                #     # end
                 end
+
             end
             #debugger
             # else

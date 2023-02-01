@@ -1,7 +1,7 @@
 
-
+# require_relative '../board'
 class Piece 
-    attr_accessor :pos
+    attr_accessor :pos, :board, :color
 
     def initialize(pos, board, color)
         @pos = pos
