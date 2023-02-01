@@ -48,3 +48,20 @@ end
 #Ned.employees << Darren
 #Darren.employees << David
 #Darren.employees << Shawna
+
+#RECURSIVE METHOD ON MANAGER'S BONUS
+# def bonus(multiplier)
+#     self.total_subsalary * multiplier
+# end
+
+# def total_subsalary
+#     total_subsalary = 0
+#     self.employees.each do |employee|
+#         if employee.is_a?(Manager)
+#             total_subsalary += employee.salary + employee.total_subsalary
+#         else
+#             total_subsalary += employee.salary
+#         end
+#     end
+#     total_subsalary
+# end
